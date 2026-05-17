@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 28px; background: var(--bg-1); font-family: var(--font-sans); }
+  .grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; align-items: center; justify-items: center; }
+  .cell { display: flex; flex-direction: column; gap: 6px; align-items: center; color: var(--fg-3); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+  svg { width: 28px; height: 28px; stroke: var(--fg-1); stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="cell">
+      <svg viewBox="0 0 24 24"><path d="M5 12h14 M13 6l6 6-6 6"/></svg>
+      <span>arrow</span>
+    </div>
+    <div class="cell">
+      <svg viewBox="0 0 24 24"><path d="M7 17L17 7 M9 7h8v8"/></svg>
+      <span>up-right</span>
+    </div>
+    <div class="cell">
+      <svg viewBox="0 0 24 24"><path d="M4 7h16 M4 12h16 M4 17h16"/></svg>
+      <span>menu</span>
+    </div>
+    <div class="cell">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12 M6 18L18 6"/></svg>
+      <span>close</span>
+    </div>
+    <div class="cell">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4-4"/></svg>
+      <span>search</span>
+    </div>
+    <div class="cell">
+      <svg viewBox="0 0 24 24"><path d="M4 8l2-3h12l2 3 M4 8v11h16V8 M4 8h16 M10 12h4"/></svg>
+      <span>mail</span>
+    </div>
+  </div>
+</body>
+</html>

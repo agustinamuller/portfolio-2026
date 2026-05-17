@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Agustina Müller — UI Kit</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--bg-1); overflow-x: hidden; }
+  #root { min-height: 100vh; }
+  button { font-family: inherit; }
+  * { box-sizing: border-box; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" src="./Components.jsx"></script>
+  <script type="text/babel" src="./Pages.jsx"></script>
+  <script type="text/babel">
+    const App = () => {
+      const [route, setRoute] = React.useState(() => localStorage.getItem("ds-route") || "home");
+      const [project, setProject] = React.useState(null);
+      const go = (r) => { setRoute(r); localStorage.setItem("ds-route", r); window.scrollTo(0,0); };
+      const open = (p) => { setProject(p); go("project"); };
+
+      if (route === "work") return <WorkPage onNav={go} onOpen={open} />;
+      if (route === "about") return <AboutPage onNav={go} />;
+      if (route === "contact") {
+        return (<>
+          <Navbar onNav={go} />
+          <section style={{padding: "120px 112px", textAlign: "center"}}>
+            <h1 style={{fontFamily:"var(--font-display)", fontWeight:500, fontSize:"clamp(72px, 14vw, 180px)", lineHeight:1, letterSpacing:"-0.02em", margin:0}}>Let's talk!</h1>
+            <p style={{marginTop:32, fontSize:20, color:"var(--fg-2)"}}>magustinamuller@gmail.com</p>
+          </section>
+          <Footer/>
+        </>);
+      }
+      if (route === "project" && project) return <ProjectDetail project={project} onNav={go} />;
+      return <HomePage onNav={go} onOpen={open} />;
+    };
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

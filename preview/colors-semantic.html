@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 28px; background: var(--bg-1); font-family: var(--font-sans); }
+  .row { display: flex; align-items: center; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--border-2); }
+  .row:last-child { border-bottom: 0; }
+  .chip { width: 56px; height: 40px; border-radius: 2px; border: 1px solid var(--border-2); flex: 0 0 auto; }
+  .meta { display: flex; flex-direction: column; gap: 2px; min-width: 120px; }
+  .nm { font-weight: 500; color: var(--fg-1); font-size: 15px; }
+  .hex { color: var(--fg-3); font-size: 12px; font-feature-settings: "tnum"; }
+  .use { color: var(--fg-2); font-size: 13px; line-height: 1.5; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="chip" style="background:rgb(139,91,135)"></div>
+    <div class="meta"><div class="nm">accent</div><div class="hex">rgb(139, 91, 135)</div></div>
+    <div class="use">Primary CTA fill · eyebrow labels (SERVICES, EXPERIENCE, INDUSTRY) · category tags · italic serif asterisk · purple hover state on menu icon.</div>
+  </div>
+  <div class="row">
+    <div class="chip" style="background:rgb(19,19,22)"></div>
+    <div class="meta"><div class="nm">ink</div><div class="hex">rgb(19, 19, 22)</div></div>
+    <div class="use">Primary headings · wordmark "agustina müller" · ghost-button outline when hovered · project titles.</div>
+  </div>
+  <div class="row">
+    <div class="chip" style="background:rgb(250,250,250); border-color: rgb(173,173,184)"></div>
+    <div class="meta"><div class="nm">bg</div><div class="hex">rgb(250, 250, 250)</div></div>
+    <div class="use">Page ground. Warm off-white — not pure white. Used everywhere a surface isn't otherwise stated.</div>
+  </div>
+</body>
+</html>

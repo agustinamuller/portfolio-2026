@@ -1,0 +1,1488 @@
+/* ================================================================
+   Agustina Müller Portfolio — Colors & Type
+   Primary typeface: Neue Montreal (fallback: Inter)
+   Decorative:      IM FELL English (italic *, small accents)
+   ================================================================ */
+
+/* Neue Montreal — self-hosted from public/fonts/ */
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-Regular.otf") format("opentype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-Medium.otf") format("opentype");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-Bold.otf") format("opentype");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-BoldItalic.otf") format("opentype");
+  font-weight: 700; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-MediumItalic.otf") format("opentype");
+  font-weight: 500; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-Italic.otf") format("opentype");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("/fonts/NeueMontreal-LightItalic.otf") format("opentype");
+  font-weight: 300; font-style: italic; font-display: swap;
+}
+
+/* IM FELL English (Google Fonts) + Inter (fallback for NM 400/500 upright) */
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* ────────── Neutral scale (dark — único modo) ────────── */
+  --color-bg:        rgb(10, 10, 12);      /* page background */
+  --color-surface:   rgb(22, 22, 26);      /* cards, elevated */
+  --color-muted-bg:  rgb(16, 16, 20);      /* subtle tint */
+  --color-border:    rgb(60, 60, 70);      /* tag + divider borders */
+  --color-border-soft: rgb(42, 42, 50);
+  --color-placeholder: rgb(42, 42, 50);
+
+  /* ────────── Foreground scale ────────── */
+  --color-ink:       rgb(250, 250, 250);   /* headings / logo — off-white */
+  --color-ink-body:  rgb(220, 220, 228);   /* body copy */
+  --color-ink-mid:   rgb(180, 180, 188);   /* captions / copyright */
+  --color-ink-soft:  rgb(130, 130, 140);   /* tertiary */
+
+  /* ────────── Brand accent — single purple ────────── */
+  --color-accent:      rgb(167, 112, 163); /* mulberry purple — sole brand accent */
+  --color-accent-ink:  rgb(10, 10, 12);    /* text on accent */
+
+  /* ────────── Semantic roles ────────── */
+  --fg-1: var(--color-ink);
+  --fg-2: var(--color-ink-body);
+  --fg-3: var(--color-ink-mid);
+  --fg-4: var(--color-ink-soft);
+  --fg-accent: var(--color-accent);
+
+  --bg-1: var(--color-bg);
+  --bg-2: var(--color-surface);
+  --bg-3: var(--color-muted-bg);
+
+  --border-1: var(--color-border);
+  --border-2: var(--color-border-soft);
+
+  /* ────────── Font families ────────── */
+  --font-sans:   "Neue Montreal", "Inter", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-sans);
+  --font-accent: "IM Fell English", "EB Garamond", Georgia, serif;
+
+  /* ────────── Type scale (from UI-Kit/Typography) ────────── */
+  --fs-hero-xl:   190px;   /* hero name lockup — desktop */
+  --fs-hero-mobile: 96px;
+  --fs-headline-xl: 135px; /* "Explore my work" */
+  --fs-headline-l:  64px;  /* footer title "Let's talk!" */
+  --fs-headline-m:  56px;  /* mobile explore */
+  --fs-display:     48px;
+  --fs-title:       32px;
+  --fs-subtitle:    24px;
+  --fs-h4:          20px;  /* project card title, button label */
+  --fs-body-lg:     17px;
+  --fs-body:        16px;  /* default body, copyright */
+  --fs-small:       14px;
+  --fs-tag:         12px;
+
+  --lh-tight: 1.0;
+  --lh-snug:  1.1;
+  --lh-body:  1.5;
+  --lh-relaxed: 1.75;
+
+  --tracking-tight: -0.02em;   /* -2% for display */
+  --tracking-normal: 0;
+  --tracking-wide:   0.08em;   /* used rarely, small caps vibe */
+
+  /* ────────── Spacing (8pt baseline + extras alineados con Figma) ────────── */
+  --space-0-5: 2px;     /* Figma: spacing/0-5 — hairlines, gaps mínimos */
+  --space-1:   4px;
+  --space-1-5: 6px;     /* Figma: spacing/1-5 — espaciado intermedio */
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   24px;
+  --space-28:  28px;    /* Figma: spacing/7 — paddings navbar */
+  --space-6:   32px;
+  --space-40:  40px;    /* Figma: spacing/10 — gaps medios */
+  --space-7:   48px;
+  --space-8:   56px;
+  --space-64:  64px;    /* Figma: spacing/16 — separaciones grandes */
+  --space-9:   72px;
+  --space-10:  96px;
+  --space-11:  112px;
+  --space-256: 256px;   /* Figma: spacing/64 — gutters de sección hero */
+
+  /* ────────── Radii ────────── */
+  --radius-none: 0;
+  --radius-sm: 2px;    /* card corners — very slight */
+  --radius-md: 8px;
+  --radius-pill: 100px; /* buttons, tags */
+
+  /* ────────── Borders ────────── */
+  --border-thin: 1px solid var(--border-1);
+  --border-hairline: 1px solid var(--border-2);
+  --border-ink: 1px solid var(--fg-1);
+
+  /* ────────── Shadows (used sparingly; portfolio is flat) ────────── */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+  /* ────────── Motion ────────── */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-fast: 140ms;
+  --dur: 220ms;
+  --dur-slow: 360ms;
+}
+
+/* ================================================================
+   Base / element defaults
+   ================================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  background: var(--bg-1);
+  color: var(--fg-2);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* text-rendering: optimizeLegibility puede causar issues con texto grande
+     en algunos motores (Chromium): rendering inconsistente, letras "cortadas",
+     ligaduras raras. Cambiar a `auto` lo soluciona y mantiene buena
+     legibilidad sin los artifacts. */
+  text-rendering: auto;
+  margin: 0;
+  padding: 0;
+  /* Prevenir scroll horizontal de toda la página. CRÍTICO usar `clip` en
+     lugar de `hidden`: `overflow-x: hidden` crea un nuevo scrolling context
+     que rompe `position: sticky` de la navbar (la navbar deja de quedar
+     fija al scrollear). `overflow-x: clip` recorta el overflow horizontal
+     sin afectar el sticky context vertical. */
+  overflow-x: clip;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--fg-1);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--lh-snug);
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--fs-hero-xl);
+  line-height: 1.02;
+  letter-spacing: var(--tracking-tight);
+}
+
+h2 {
+  font-size: var(--fs-headline-xl);
+  line-height: 0.92;
+}
+
+h3 {
+  font-size: var(--fs-headline-l);
+  line-height: 1.05;
+}
+
+h4 {
+  font-size: var(--fs-title);
+  line-height: 1.25;
+  font-weight: 500;
+}
+
+h5 {
+  font-size: var(--fs-h4);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+h6 {
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--fg-accent);
+  text-transform: uppercase;
+}
+
+p {
+  margin: 0;
+  color: var(--fg-2);
+  line-height: var(--lh-body);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+/* Hover global de links: opacity 0.7. Excluimos clases que manejan su propio
+   hover (cards, nav-items) para que no afecte a sus contenidos. */
+a:hover:not(.work-card-link):not(.nav-mobile-link):not(:has(.nav-item)) { opacity: 0.7; }
+
+button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border-2);
+  margin: var(--space-7) 0;
+}
+
+/* ================================================================
+   Utility classes — semantic
+   ================================================================ */
+
+.ds-eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  color: var(--fg-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.75;
+}
+
+/* ================================================================
+   CategoryTag — tags de las cards de Selected Work
+   - Desktop / Tablet: 14/20 (S/Medium del Figma)
+   - Mobile (≤600): 12/16 (XS/Medium del Figma)
+   El color lo maneja inline el componente (depende del variant).
+   ================================================================ */
+.category-tag {
+  font-family: "Neue Montreal", var(--font-sans);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 4px 2px;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .category-tag {
+    font-size: 12px;
+    line-height: 16px;
+  }
+}
+
+.ds-hero {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-hero-xl);
+  line-height: 1.02;
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-1);
+}
+
+.ds-body { font-size: var(--fs-body); line-height: 1.75; color: var(--fg-2); }
+.ds-small { font-size: var(--fs-small); line-height: 1.43; color: var(--fg-2); }
+.ds-caption { font-size: var(--fs-body); color: var(--fg-3); }
+
+.ds-accent-star {
+  font-family: var(--font-accent);
+  color: var(--color-accent);
+  font-style: italic;
+  line-height: 1;
+}
+
+.ds-accent-star--sm { font-size: 24px; }
+.ds-accent-star--md { font-size: 40px; }
+.ds-accent-star--lg { font-size: 82px; }
+
+/* ================================================================
+   About me — cards con fondo dark + pill morado + cursor decorativo
+   ================================================================ */
+
+.about-card {
+  background: rgba(22, 22, 26, 1);
+  border-radius: 12px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  /* Sin border ni height fijo: la card crece con su contenido. */
+  transition:
+    transform 320ms var(--ease),
+    box-shadow 320ms var(--ease);
+  cursor: pointer;
+}
+
+/* Hover SOLO en devices con mouse real (hover: hover). En touch el :hover
+   queda sticky después del tap → el lift de 6px se queda enganchado.
+   Esto evita ese bug. El mobile reset (cursor:default + transform:none)
+   sigue aplicando con !important más abajo. */
+@media (hover: hover) and (pointer: fine) {
+  .about-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-card {
+    transition: none;
+  }
+  .about-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* ----------------------------------------------------------------
+   About me — Mobile (≤ 600px) | Figma node 624:660
+   - Padding section: 56px 16px
+   - Título BlurText: 36/44 (vs 56/64 desktop)
+   - Cards grid: 1 columna (stacked)
+   - Cards padding interno: 24px (más compacto)
+   - Sin hover transform (no hay hover en touch)
+   - Testimonials título: 32/40 (XL/Medium)
+   ---------------------------------------------------------------- */
+
+@media (max-width: 600px) {
+  .about-me {
+    padding: 56px 16px !important;
+    gap: 40px !important;
+  }
+
+  /* Título grande con BlurText — reduce al tamaño del Figma mobile */
+  .about-title-blur {
+    font-size: 36px !important;
+    line-height: 44px !important;
+    letter-spacing: -1px !important;
+  }
+  .about-title-blur * {
+    font-size: 36px !important;
+    line-height: 44px !important;
+  }
+
+  /* Cards stacked verticalmente */
+  .about-cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* Card más compacta en mobile */
+  .about-card {
+    padding: 24px !important;
+    gap: 20px !important;
+    cursor: default !important;
+  }
+
+  /* En mobile no hay hover real → eliminamos el lift */
+  .about-card:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Título h3 dentro de la card → reducir si era 32px */
+  .about-card h3 {
+    font-size: 24px !important;
+    line-height: 32px !important;
+  }
+
+  /* Testimonials title → 32/40 (XL/Medium del Figma) */
+  .about-testimonials-title {
+    font-size: 32px !important;
+    line-height: 40px !important;
+    letter-spacing: -0.5px !important;
+  }
+}
+
+.about-testimonial-card {
+  /* Sin background ni border-radius — el contenido (quote + autor) va
+     directo sobre el dark de la página. */
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: space-between;
+  box-sizing: border-box;
+  /* Ancho más amplio para que el quote (20px italic) entre sin cortarse. */
+  width: 420px;
+  min-height: 200px;
+}
+
+/* ================================================================
+   LogoLoop — slider horizontal con autoplay y fade en bordes
+   ================================================================ */
+
+.logoloop {
+  position: relative;
+  --logoloop-gap: 32px;
+  --logoloop-logoHeight: 28px;
+  --logoloop-fadeColorAuto: var(--bg-1);
+}
+
+.logoloop--vertical {
+  height: 100%;
+  display: inline-block;
+}
+
+.logoloop__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  user-select: none;
+  position: relative;
+  z-index: 0;
+}
+
+.logoloop--vertical .logoloop__track {
+  flex-direction: column;
+  height: max-content;
+  width: 100%;
+}
+
+.logoloop__list {
+  display: flex;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.logoloop--vertical .logoloop__list {
+  flex-direction: column;
+}
+
+.logoloop__item {
+  flex: 0 0 auto;
+  margin-right: var(--logoloop-gap);
+  line-height: 1;
+  list-style: none;
+}
+
+.logoloop--vertical .logoloop__item {
+  margin-right: 0;
+  margin-bottom: var(--logoloop-gap);
+}
+
+.logoloop__node {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logoloop__item img {
+  height: var(--logoloop-logoHeight);
+  width: auto;
+  display: block;
+  object-fit: contain;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+.logoloop__link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.logoloop__link:hover {
+  opacity: 0.8;
+}
+
+.logoloop__link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Fade-out en bordes — width chico (60-160) y muy gradual, para que sea
+   un soft fade, no una banda marcada que oculte contenido. */
+.logoloop--fade::before,
+.logoloop--fade::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(60px, 8%, 160px);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.logoloop--fade::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.logoloop--fade::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoloop__track {
+    /* Sin transform: el slider queda quieto, no necesita capa GPU. Antes
+       era translate3d(0,0,0) que forzaba layer composite innecesario.
+       Mismo patrón que el fix de Reveal/HeroWordmark. */
+    transform: none !important;
+  }
+}
+
+/* ================================================================
+   LogoLoop — extras puntuales que complementan el bloque principal
+   (definido arriba). Antes acá había un bloque LogoLoop duplicado
+   completo — se removió la duplicación, dejamos solo las reglas
+   adicionales que el bloque principal no tenía.
+   ================================================================ */
+
+/* Padding extra para que las cards/logos no se corten cuando hacen
+   scale-up en hover. */
+.logoloop--scale-hover {
+  padding-top: calc(var(--logoloop-logoHeight) * 0.1);
+  padding-bottom: calc(var(--logoloop-logoHeight) * 0.1);
+}
+
+/* Mantener el gap también en el último ítem — sin esto, cuando el track
+   wrap-loops el final pega contra la copia siguiente sin espacio. */
+.logoloop__item:last-child {
+  margin-right: var(--logoloop-gap);
+}
+
+/* Override del testimonials-loop del home: cada card respeta ancho fijo. */
+.testimonials-loop .about-testimonial-card {
+  width: 360px;
+  height: auto;
+}
+
+/* También oculto el cursor en elementos interactivos hijos para que sea
+   coherente — todos los links siguen funcionando pero el cursor del
+   sistema queda oculto a favor del decorativo. */
+.about-me a,
+.about-me button {
+  cursor: none;
+}
+
+.about-hello-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-accent);
+  color: #ffffff;
+  padding: 8px 14px;
+  border-radius: 100px;
+  font-family: "Neue Montreal", var(--font-sans);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  align-self: flex-start;
+  margin-top: 8px;
+  box-shadow: 0 6px 18px rgba(139, 91, 135, 0.35);
+  width: fit-content;
+}
+
+.about-hello-asterisk {
+  font-family: "IM Fell English", Georgia, serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Cursor decorativo en la sección About me — el SVG no debe responder a
+   hover ni interferir con el contenido. */
+.about-cursor img {
+  user-select: none;
+}
+
+/* ================================================================
+   Footer — LinkedIn badge con hover suave
+   ================================================================ */
+
+.footer-linkedin {
+  cursor: pointer;
+}
+
+/* Hover SOLO en devices con mouse — en touch el lift + shadow quedan
+   sticky después del tap. */
+@media (hover: hover) and (pointer: fine) {
+  .footer-linkedin:hover {
+    transform: translateY(-2px) scale(1.06);
+    box-shadow: 0 8px 22px rgba(139, 91, 135, 0.4);
+  }
+}
+
+/* ================================================================
+   Cursor del sistema oculto en secciones con cursor decorativo
+   ================================================================
+   Aplica a TODOS los descendientes — incluso a links, botones, hover
+   states y el momento del click. !important para sobrescribir el
+   cursor: pointer/grab que algunos navegadores aplican por default. */
+
+.hero-physics,
+.hero-physics *,
+.about-me,
+.about-me *,
+.toolkit-section,
+.toolkit-section * {
+  cursor: none !important;
+}
+
+/* En mobile y tablet (≤1024px) NO ocultamos el cursor — los cursores
+   decorativos no se renderizan en touch/intermediate devices, así que
+   dejamos el cursor del sistema visible. */
+@media (max-width: 1024px) {
+  .hero-physics,
+  .hero-physics *,
+  .about-me,
+  .about-me *,
+  .toolkit-section,
+  .toolkit-section * {
+    cursor: auto !important;
+  }
+}
+
+/* ================================================================
+   My Toolkit — dock con íconos estilo Dock de macOS
+   ================================================================ */
+
+.toolkit-dock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 24px 28px;
+  background: rgba(40, 40, 45, 0.7);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  /* Centrado dentro del Reveal wrapper (que es width 100%).
+     En mobile, .toolkit-dock toma width 100% por media query, así que
+     margin auto no afecta. */
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}
+
+.toolkit-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Wrapper NO escala — sólo el icono interior. El tooltip vive acá afuera
+     para no heredar el scale del dock effect. */
+  cursor: none;
+}
+
+.toolkit-icon {
+  cursor: none;
+}
+
+.toolkit-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Transición rápida — el efecto dock se aplica via JS, esto sólo suaviza
+     el regreso al estado neutral cuando el mouse sale. */
+  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-origin: center bottom;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  /* Sin background: cada SVG trae su propio fondo redondeado completo
+     desde Figma, así no aparece "stroke" del color del contenedor cuando
+     el border-radius del SVG no coincide exacto con el del wrapper. */
+}
+
+/* Tooltip del nombre de la app — debajo del dock (no del ícono).
+   El +44px sale del padding-bottom del dock (24px) + 20px de gap, así
+   queda flotando fuera del dock sin superponerse. Sólo visible cuando
+   el cursor está DIRECTAMENTE sobre el ícono específico. */
+.toolkit-tooltip {
+  position: absolute;
+  top: calc(100% + 44px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  background: rgba(20, 20, 24, 0.92);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--fg-1);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-family: "Neue Montreal", var(--font-sans);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms var(--ease), transform 180ms var(--ease);
+  z-index: 20;
+}
+
+/* Tooltip on hover — SOLO en devices con mouse real (hover: hover).
+   En touch devices (mobile, tablet sin trackpad), el :hover queda sticky
+   después de un tap y varios tooltips aparecen a la vez. */
+@media (hover: hover) and (pointer: fine) {
+  .toolkit-icon-wrapper:hover .toolkit-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Tap-to-show feedback (.is-active) — funciona en TODOS los breakpoints
+   donde no hay hover real (mobile y tablet touch). Se setea via React
+   onTouchStart cuando hasHover es false. */
+.toolkit-icon-wrapper.is-active .toolkit-icon {
+  transform: scale(1.35) translateY(-4px) !important;
+}
+.toolkit-icon-wrapper.is-active .toolkit-tooltip {
+  opacity: 1 !important;
+  transform: translateX(-50%) translateY(0) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toolkit-icon,
+  .toolkit-tooltip {
+    transition: none;
+  }
+}
+
+/* ----------------------------------------------------------------
+   Toolkit — Mobile (≤ 600px) | Figma node 624:659
+   - Padding section: 56px 16px (matchea wrapper card del Figma)
+   - Título: 32/40 (XL/Medium)
+   - Dock: height fijo 48px, padding 8px, justify-content space-between
+   - Íconos: 28×28 fijos (no escalan, no hay magnification dock)
+   - Tooltips ocultos (no hay hover en touch)
+   - Cursor decorativo oculto (no hay mouse)
+   ---------------------------------------------------------------- */
+
+@media (max-width: 600px) {
+  .toolkit-section {
+    padding: 56px 16px !important;
+    gap: 32px !important;
+  }
+
+  /* Título XL/Medium del Figma mobile */
+  .toolkit-section h2 {
+    font-size: 32px !important;
+    line-height: 40px !important;
+    letter-spacing: -0.5px !important;
+  }
+
+  /* Dock con hug-contents (fit-content) + centrado, gap fijo entre
+     íconos. max-width: 100% evita que se desborde si el contenedor es
+     más chico que el contenido. */
+  .toolkit-dock {
+    width: fit-content !important;
+    max-width: 100% !important;
+    height: auto !important;
+    padding: 8px 12px !important;
+    gap: 12px !important;
+    justify-content: center !important;
+    border-radius: 12px !important;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Íconos fijos al tamaño Figma (28×28). Escalan brevemente al tap
+     (estado .is-active del wrapper, gestionado por React). */
+  .toolkit-icon {
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 6px !important;
+    transform: none;
+    box-shadow: none !important;
+    cursor: default !important;
+    transition: transform 220ms var(--ease) !important;
+  }
+
+  /* Al tap (.is-active), agranda el ícono — feedback visual de la
+     interacción, equivalente al hover desktop. */
+  .toolkit-icon-wrapper.is-active .toolkit-icon {
+    transform: scale(1.35) translateY(-4px) !important;
+  }
+
+  .toolkit-icon-wrapper {
+    cursor: default !important;
+    /* Permitir tap targets más grandes (mejor UX touch). */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* En mobile el tooltip aparece sólo al tap (.is-active). Sin tap
+     queda oculto. Se reposiciona más cerca del ícono porque el dock
+     mobile es chico (no hay 44px de padding como desktop). */
+  .toolkit-tooltip {
+    top: calc(100% + 16px);
+    opacity: 0;
+    pointer-events: none;
+    display: block; /* override del display:none del bloque anterior */
+  }
+
+  .toolkit-icon-wrapper.is-active .toolkit-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* ================================================================
+   Nav items — ghost links con hover + active states
+   ================================================================ */
+
+.nav-item {
+  color: var(--fg-1);
+  transition: color var(--dur) var(--ease);
+}
+
+/* Hover SOLO en devices con mouse real — en laptop táctil el :hover
+   queda sticky después del tap y los items quedan en accent. */
+@media (hover: hover) and (pointer: fine) {
+  .nav-item:hover {
+    color: var(--color-accent);
+  }
+}
+
+.nav-item.is-active {
+  color: var(--color-accent);
+}
+
+/* ================================================================
+   Work cards — hover state (escala + botón overlay en el media)
+   ================================================================ */
+
+.work-card-link {
+  display: block;
+  flex: 1 1 0;
+  min-width: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.work-card-media {
+  /* Altura responsive con aspect-ratio (en lugar de height fijo).
+     Esto hace que las cards se adapten al ancho disponible en cualquier
+     viewport, evitando que se vean desproporcionadas en breakpoints
+     intermedios (ej. desktop angosto 1100-1280px). */
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  /* Background dark para cubrir zonas vacías cuando object-fit: contain
+     muestra el media completo sin recortar (si el media tiene aspect-ratio
+     distinto a 16:9). */
+  background: var(--bg-2);
+  position: relative;
+  width: 100%;
+  flex-shrink: 0;
+  transition: transform 450ms var(--ease);
+}
+
+/* El media RELLENA el contenedor (object-fit: cover). El container tiene
+   aspect-ratio 16/9 → con assets típicos de dashboard/video web (16:9 o
+   muy cercanos), el cover no recorta visiblemente. Si algún asset tiene
+   un aspect-ratio significativamente distinto, se recorta los bordes
+   (no se ven zonas vacías). */
+.work-card-media video,
+.work-card-media img {
+  object-fit: cover !important;
+}
+
+/* Hover effects de las cards SOLO en devices con mouse real (hover:hover).
+   En tablet/laptop táctil el :hover queda sticky después del tap y los
+   cards quedan con scale + opacity 0.55 hasta tocar otra cosa. En mobile
+   ya hay override que oculta el overlay (work-card-overlay), pero el
+   scale + opacity también deben deshabilitarse en touch. */
+@media (hover: hover) and (pointer: fine) {
+  .work-card-link:hover .work-card-media {
+    transform: scale(1.02);
+  }
+  .work-card-link:hover .work-card-media video,
+  .work-card-link:hover .work-card-media img {
+    opacity: 0.55;
+  }
+}
+
+/* Transition siempre activa — el hover puede aparecer/desaparecer en
+   devices con mouse, queremos que sea suave. */
+.work-card-media video,
+.work-card-media img {
+  transition: opacity 280ms var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-card-media video,
+  .work-card-media img {
+    transition: none;
+  }
+}
+
+.work-card-overlay {
+  /* inset:0 hace que el overlay coincida exactamente con el media
+     (que ahora tiene aspect-ratio responsivo, no height fijo). Antes
+     era height:485px lo cual generaba un área hover invisible debajo
+     del media en cards más bajas. */
+  position: absolute;
+  inset: 0;
+  /* Solo el media (parent con overflow:hidden) — el overlay no debe
+     extenderse al texto/título de abajo. */
+  bottom: auto;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .work-card-link:hover .work-card-overlay {
+    visibility: visible;
+  }
+}
+
+.work-card-overlay-btn {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #8b5b87;
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: 100px;
+  font-family: "Neue Montreal", var(--font-sans);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 28px;
+  white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  transform: translateY(6px);
+  transition: transform 280ms var(--ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .work-card-link:hover .work-card-overlay-btn {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-card-media,
+  .work-card-overlay,
+  .work-card-overlay-btn {
+    transition: none;
+  }
+  .work-card-link:hover .work-card-media {
+    transform: none;
+  }
+  .work-card-link:hover .work-card-overlay-btn {
+    transform: none;
+  }
+}
+
+/* Botón "view project" visible en mobile (debajo del título de la card).
+   En desktop está oculto — el CTA aparece en hover sobre la media. */
+.work-card-mobile-btn {
+  display: none; /* hidden por default, sólo visible en mobile */
+}
+
+@media (max-width: 600px) {
+  /* Altura fija de la media en mobile — Figma mobile: 315px alto.
+     Override aspect-ratio del global (que es 16/9) para que el height
+     fijo gane. Y object-fit cover para llenar (mantiene Figma original). */
+  .work-card-media {
+    height: 315px;
+    aspect-ratio: auto;
+    border-radius: 8px;
+  }
+  .work-card-media video,
+  .work-card-media img {
+    object-fit: cover !important;
+  }
+
+  .work-card-mobile-btn {
+    display: inline-flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 6px;
+    background: #8b5b87;
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 100px;
+    font-family: "Neue Montreal", var(--font-sans);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 28px;
+    white-space: nowrap;
+  }
+
+  /* En mobile, ocultamos el overlay de hover de la media (no hay hover). */
+  .work-card-overlay {
+    display: none;
+  }
+}
+
+/* ================================================================
+   Scroll-linked zoom-out — wordmark "agustina müller"
+   Se agranda, difumina y desaparece a medida que se scrolea.
+   ================================================================ */
+
+.anim-scroll-zoom-out {
+  transform-origin: center center;
+  will-change: transform, opacity, filter;
+}
+
+@supports (animation-timeline: view()) {
+  .anim-scroll-zoom-out {
+    animation: wordmark-zoom-out linear both;
+    animation-timeline: view();
+    /* Empieza cuando el elemento está completamente dentro del viewport,
+       y termina cuando ha salido al 50% por arriba. */
+    animation-range: entry 100% exit 50%;
+  }
+}
+
+@keyframes wordmark-zoom-out {
+  to {
+    transform: scale(1.4);
+    opacity: 0;
+    filter: blur(12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-scroll-zoom-out {
+    animation: none;
+    transform: none;
+    opacity: 1;
+    filter: none;
+  }
+}
+
+/* ================================================================
+   Scroll-linked reveal — animación que avanza con el scroll
+   ================================================================ */
+
+/* Estado inicial — invisible y desplazado hacia abajo.
+   Si el browser NO soporta animation-timeline (Firefox, Safari < 18)
+   se muestra sin animación. Si lo soporta, la animación avanza con el scroll. */
+.anim-scroll-linked {
+  opacity: 0;
+  transform: translateY(48px);
+}
+
+@supports (animation-timeline: view()) {
+  .anim-scroll-linked {
+    animation: scroll-fade-up linear both;
+    animation-timeline: view();
+    /* La animación arranca cuando el elemento está 20% dentro del viewport
+       y termina cuando ha cubierto el 35% del cover (más adentro). */
+    animation-range: entry 20% cover 35%;
+  }
+}
+
+@keyframes scroll-fade-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fallback para browsers sin soporte: contenido visible sin animación */
+@supports not (animation-timeline: view()) {
+  .anim-scroll-linked {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced motion: contenido visible sin transformación */
+@media (prefers-reduced-motion: reduce) {
+  .anim-scroll-linked {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* ================================================================
+   Navbar — glass blur al scrollear
+   ================================================================ */
+
+.nav-shell {
+  background: var(--bg-1);
+  border-bottom: 1px solid transparent;
+  transition:
+    background var(--dur) var(--ease),
+    backdrop-filter var(--dur) var(--ease),
+    -webkit-backdrop-filter var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+
+.nav-shell.is-scrolled {
+  background: rgba(10, 10, 12, 0.65);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ================================================================
+   Navbar — Mobile (≤ 600px)
+   ────────────────────────────────────────────────────────────────
+   - El toggle hamburger (≡) sólo aparece en mobile.
+   - Los 3 botones desktop se ocultan.
+   - Padding lateral baja a 16px (token spacing/4 del Figma).
+   - El menú expandido es un overlay full-screen debajo del navbar,
+     con scroll del body bloqueado mientras está abierto.
+   ================================================================ */
+
+/* Por defecto (desktop): el toggle y el overlay están ocultos. */
+.nav-mobile-toggle {
+  display: none;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg-1);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--dur) var(--ease);
+}
+
+.nav-mobile-toggle:hover {
+  color: var(--color-accent);
+}
+
+.nav-mobile-overlay {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  /* Navbar shell: padding lateral 16px en mobile */
+  .nav-shell {
+    padding: 28px 16px !important;
+  }
+
+  /* Ocultar los botones desktop, mostrar el toggle */
+  .nav-desktop-items {
+    display: none !important;
+  }
+  .nav-mobile-toggle {
+    display: flex;
+  }
+
+  /* Overlay full-screen debajo del navbar (96px).
+     Match Figma 519:610: container con items arriba (no centrados
+     verticalmente), gap 20px entre items, texto centrado horizontalmente.
+     !important defensivo: hay otras reglas en el proyecto que pueden
+     overridear el alignment de <a> tags. */
+  .nav-mobile-overlay {
+    display: block !important;
+    position: fixed;
+    top: 96px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--bg-1);
+    padding: 20px 0 0;
+    text-align: center !important;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-slow) var(--ease);
+    z-index: 9; /* debajo del navbar (z-10) pero arriba del contenido */
+    overflow-y: auto;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav-mobile-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Cada link — display:block + width:100% + text-align:center.
+     Cinturón y tirantes: !important en alignment + width para garantizar
+     que ninguna regla previa pueda dejar el texto a la izquierda o derecha. */
+  .nav-mobile-link {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box;
+    font-family: 'Neue Montreal', var(--font-sans);
+    /* Alineado con navbar desktop: 18px regular (antes 20/500). */
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--fg-1);
+    text-align: center !important;
+    padding: 4px 12px;
+    margin: 0;
+    transition: color var(--dur) var(--ease);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Espaciado vertical entre links — 20px gap del Figma. */
+  .nav-mobile-link + .nav-mobile-link {
+    margin-top: 20px;
+  }
+
+  /* Pressed / hover / focus → color accent (mulberry).
+     :active es lo que se ve cuando el dedo está apoyado en mobile. */
+  .nav-mobile-link:hover,
+  .nav-mobile-link:active,
+  .nav-mobile-link:focus,
+  .nav-mobile-link:focus-visible {
+    color: var(--color-accent);
+  }
+}
+
+/* ================================================================
+   Tablet (601px – 1024px)
+   ────────────────────────────────────────────────────────────────
+   Hereda layout DESKTOP (2 columnas, navbar normal, etc.) pero con
+   padding lateral reducido a 16px. El contenido llena el contenedor
+   disponible, evitando el "agujero" de 112px de cada lado del desktop.
+   ================================================================ */
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  /* Navbar — padding lateral 48px (vs 112px desktop) */
+  .nav-shell {
+    padding: 28px 64px !important;
+  }
+
+  /* WhatIDo — padding lateral 48px + ocultar arrow icon */
+  .whatido-section {
+    /* padding-top reducido 96 → 64 (consistente con desktop). */
+    padding: 64px 64px 112px !important;
+  }
+  .whatido-arrow {
+    display: none !important;
+  }
+
+  /* Selected Work — padding lateral 48px del wrapper del grid */
+  .work-grid-wrap {
+    padding: 0 64px !important;
+  }
+  .work-section-title {
+    padding: 0 64px !important;
+  }
+
+  /* Selected Work — cards STACKED verticalmente en tablet (1 col).
+     Cada card es full-width → el media se ve grande y completo.
+     La media usa el aspect-ratio 16:9 + object-fit:contain del default
+     global. Si el asset no es 16:9, las zonas vacías se llenan con el
+     background dark de la card (no se cortan las imágenes). */
+  .work-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  /* Sin hover overlay en tablet — botón visible siempre */
+  .work-card-overlay {
+    display: none !important;
+  }
+  .work-card-mobile-btn {
+    display: inline-flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 6px;
+    background: #8b5b87;
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 100px;
+    font-family: "Neue Montreal", var(--font-sans);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 28px;
+    white-space: nowrap;
+  }
+
+  /* About me — padding lateral 48px */
+  .about-me {
+    padding: 96px 48px 112px !important;
+  }
+
+  /* My Toolkit — padding lateral + dock con hug-contents (width: fit-content)
+     centrado. Los íconos quedan agrupados al ancho exacto que ocupan +
+     paddings + gaps, sin estirarse al 100% del contenedor. */
+  .toolkit-section {
+    padding: 96px 64px !important;
+  }
+  .toolkit-dock {
+    width: fit-content !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    justify-content: center !important;
+    gap: 16px !important;
+    padding: 16px 20px !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .toolkit-icon {
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 14px !important;
+  }
+
+  /* Footer — padding lateral 48px */
+  .footer-section {
+    padding: 96px 48px 56px !important;
+  }
+}
+
+@keyframes anim-fade-slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes anim-fade-slide-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Fade in al cargar para WhatIDo mobile.
+   Aparece en sync con el hero (delay ~400ms para que arranque después de
+   la entrada del navbar y dé sensación de continuidad). Sólo se usa en
+   mobile — desktop usa Reveal con scroll trigger. */
+@keyframes whatido-mobile-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.whatido-mobile-fade-in {
+  opacity: 0;
+  /* Delay 1500ms = HERO_ANIMATION_MS — espera a que el hero termine
+     de animar (letras cayendo + pills) antes de aparecer. Antes era 400ms
+     y se veía al mismo tiempo que el hero. */
+  animation: whatido-mobile-fade 800ms 1500ms var(--ease) forwards;
+}
+
+/* Respetar reduced motion — saltea la animación, queda visible al instante. */
+@media (prefers-reduced-motion: reduce) {
+  .whatido-mobile-fade-in {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* Letra individual del wordmark — cae desde arriba con rebote.
+   Se aplica a cada SVG de letra con un animation-delay distinto (stagger). */
+@keyframes hero-letter-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-110vh);
+  }
+  45% {
+    opacity: 1;
+  }
+  62% {
+    transform: translateY(0);
+  }
+  74% {
+    transform: translateY(-18px);
+  }
+  84% {
+    transform: translateY(0);
+  }
+  92% {
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anim-enter-navbar {
+  animation: anim-fade-slide-down 500ms var(--ease) both;
+}
+
+.hero-letter {
+  animation: hero-letter-drop 1100ms cubic-bezier(0.45, 0.05, 0.55, 1) both;
+  will-change: transform, opacity;
+}
+
+/* Playground físico (desktop y mobile) — fade in rápido con delay 800ms.
+   Sincronizado con la entrada del wordmark (las letras tienen stagger
+   60ms × 14 = 840ms). El fade in es CORTO (200ms) porque lo importante
+   es ver la animación de caída de las pills, no el fade.
+   La simulación física también arranca con delay 800ms (ver useEffects
+   de HeroPhysicsOverlay y HeroMobilePhysicsOverlay) para que las pills
+   no caigan invisibles. */
+@keyframes hero-physics-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.hero-physics {
+  animation: hero-physics-fade-in 200ms 800ms var(--ease) both;
+}
+
+/* Mobile: delay un poco más largo (1200ms) — el wordmark dividido en
+   2 líneas se siente más espaciado en su entrada, así las pills tienen
+   más tiempo respiratorio antes de aparecer. */
+.hero-physics-mobile {
+  animation: hero-physics-fade-in 200ms 1200ms var(--ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-letter {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .hero-physics,
+  .hero-physics-mobile {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-enter-navbar,
+  .anim-enter-wordmark {
+    animation: none;
+  }
+}
+

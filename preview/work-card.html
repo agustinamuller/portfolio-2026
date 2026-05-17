@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--bg-1); font-family: var(--font-sans); }
+  .card { width: 660px; margin: 14px; background: var(--bg-1); }
+  .media { background: rgb(224,224,224); aspect-ratio: 16 / 9; width: 100%; border-radius: 2px; overflow: hidden; }
+  .media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .body { padding: 12px 0 0; display: flex; gap: 32px; align-items: center; }
+  .left { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+  .meta { display: flex; gap: 14px; align-items: center; }
+  .meta .y { color: var(--fg-2); font-weight: 500; font-size: 14px; }
+  .meta .t { color: var(--color-accent); font-weight: 500; font-size: 14px; }
+  .title { font-family: var(--font-display); font-weight: 500; font-size: 20px; line-height: 1.4; color: var(--fg-1); margin-top: 4px; letter-spacing: -0.01em; }
+  .desc { font-size: 14px; line-height: 1.5; color: var(--fg-2); margin-top: 2px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px;
+    border-radius: 100px; background: var(--color-accent); color: #fafafa;
+    font-weight: 500; font-size: 16px; line-height: 28px; white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="media"><img src="../assets/work-1.jpg" onerror="this.style.display='none'" alt=""></div>
+    <div class="body">
+      <div class="left">
+        <div class="meta"><span class="y">2025</span><span class="t">FINTECH</span><span class="t">MOBILE</span><span class="t">B2C</span></div>
+        <div class="title">Aumenté la conversión en una experiencia de escaneo facial 3D</div>
+        <div class="desc">Diseño de una app B2C para la compra de lentes personalizados, combinando escaneo 3D y gestión médica.</div>
+      </div>
+      <a class="btn">ver proyecto
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11 L11 3 M5 3 H11 V9" stroke="#fafafa" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
