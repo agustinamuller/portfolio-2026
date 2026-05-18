@@ -1,4 +1,4 @@
-import { WorkCard } from '@/components/WorkCard'
+﻿import { WorkCard } from '@/components/WorkCard'
 import { SelectedWorkTitle } from '@/components/SelectedWorkTitle'
 import { Footer } from '@/components/Footer'
 import { HeroPhysicsOverlay } from '@/components/hero/HeroPhysicsOverlay'
@@ -69,9 +69,12 @@ function Hero() {
       {/* ==================== MOBILE ==================== */}
 
       {/* Playground físico MOBILE — pills más chicas, viewBox 393×180.
-          Wrapped en HeroWordmarkScroll para que tenga el mismo scroll-out
-          animation (scale + blur + fade) que las pills desktop. */}
-      <HeroWordmarkScroll
+          NOTA: en mobile NO usamos HeroWordmarkScroll (a diferencia de
+          desktop). El scroll-out animation (scale + blur + fade) interfería
+          con la interacción al jugar con las pills: el scroll accidental
+          mientras se arrastran hacía que el playground se escalara y
+          desapareciera. Wrapper simple, sin scroll listener. */}
+      <div
         className="hero-physics-mobile-wrap"
         style={{
           width: '100%',
@@ -81,11 +84,16 @@ function Hero() {
         }}
       >
         <HeroMobilePhysicsOverlay />
-      </HeroWordmarkScroll>
+      </div>
 
       {/* Wordmark MOBILE — "agustina" arriba + "müller" abajo, letras
-          individuales con stagger continuo. Mismo scroll-out animation. */}
-      <HeroWordmarkScroll
+          individuales con stagger continuo.
+          NOTA: en mobile NO usamos HeroWordmarkScroll (a diferencia de
+          desktop). El scroll-out animation interfería con la interacción
+          del playground físico — al jugar con las pills, el scroll
+          accidental hacía que el wordmark se escalara y desapareciera,
+          ensuciando la experiencia. Wrapper simple, sin scroll listener. */}
+      <div
         className="hero-wordmark-mobile-wrap"
         style={{
           width: '100%',
@@ -98,7 +106,7 @@ function Hero() {
         }}
       >
         <HeroMobileWordmark />
-      </HeroWordmarkScroll>
+      </div>
 
       {/* Cursor del playground — montado FUERA del HeroWordmarkScroll
           (transform rompería el position:fixed del cursor). Solo desktop. */}

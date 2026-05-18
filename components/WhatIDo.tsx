@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useState } from 'react'
 import { Reveal } from './Reveal'
@@ -36,7 +36,12 @@ export function WhatIDo() {
   const paragraph1 =
     language === 'es' ? (
       <p style={paragraphStyle}>
-        Soy Agustina, UX/UI &amp; Product Designer de Argentina, enfocada en crear productos digitales claros, funcionales y escalables. Diseño aplicaciones mobile y plataformas web, equilibrando necesidades de usuario y objetivos de negocio para crear experiencias intuitivas y consistentes.
+        Soy Agustina, <span style={emphasisStyle}>UX/UI</span> &amp;{' '}
+        <span style={emphasisStyle}>Product Designer</span> de Argentina, enfocada en crear productos digitales claros, funcionales y escalables. Diseño{' '}
+        <span style={emphasisStyle}>aplicaciones mobile</span> y{' '}
+        <span style={emphasisStyle}>plataformas web</span>, equilibrando{' '}
+        <span style={emphasisStyle}>necesidades de usuario</span> y{' '}
+        <span style={emphasisStyle}>objetivos de negocio</span> para crear experiencias intuitivas y consistentes.
       </p>
     ) : (
       <p style={paragraphStyle}>
@@ -52,7 +57,8 @@ export function WhatIDo() {
   const paragraph2 =
     language === 'es' ? (
       <p style={paragraphStyle}>
-        Me especializo en Product Design y Design Systems, colaborando con equipos de producto y desarrollo en proyectos B2B, B2C, SaaS, fintech y e-commerce, transformando flujos complejos en soluciones simples, escalables y centradas en el usuario.
+        Me especializo en <span style={emphasisStyle}>Product Design</span> y{' '}
+        <span style={emphasisStyle}>Design Systems</span>, colaborando con equipos de producto y desarrollo en proyectos B2B, B2C, SaaS, fintech y e-commerce, transformando flujos complejos en soluciones simples, escalables y centradas en el usuario.
       </p>
     ) : (
       <p style={paragraphStyle}>
