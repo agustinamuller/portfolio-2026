@@ -587,6 +587,16 @@ hr {
   height: auto;
 }
 
+/* El LogoLoop aplica height: var(--logoloop-logoHeight) + width: auto a
+   todos los <img> dentro del slider, y el logoHeight del testimonials-loop
+   es 240. Sin este override, el icono de LinkedIn de 20x20 se estiraba a
+   240px de alto. Aseguramos su tamaño con !important para ganar specificity. */
+.testimonials-loop .testimonial-linkedin-icon {
+  width: 20px !important;
+  height: 20px !important;
+  flex-shrink: 0;
+}
+
 /* También oculto el cursor en elementos interactivos hijos para que sea
    coherente — todos los links siguen funcionando pero el cursor del
    sistema queda oculto a favor del decorativo. */
@@ -644,31 +654,19 @@ hr {
 }
 
 /* ================================================================
-   Cursor del sistema oculto en secciones con cursor decorativo
-   ================================================================
-   Aplica a TODOS los descendientes — incluso a links, botones, hover
-   states y el momento del click. !important para sobrescribir el
-   cursor: pointer/grab que algunos navegadores aplican por default. */
+   Cursor del sistema oculto SOLO en el Hero (donde sigue habiendo
+   cursor decorativo). About me y Toolkit lo perdieron, así que el
+   cursor del sistema queda visible en esas secciones.
+   ================================================================ */
 
 .hero-physics,
-.hero-physics *,
-.about-me,
-.about-me *,
-.toolkit-section,
-.toolkit-section * {
+.hero-physics * {
   cursor: none !important;
 }
 
-/* En mobile y tablet (≤1024px) NO ocultamos el cursor — los cursores
-   decorativos no se renderizan en touch/intermediate devices, así que
-   dejamos el cursor del sistema visible. */
 @media (max-width: 1024px) {
   .hero-physics,
-  .hero-physics *,
-  .about-me,
-  .about-me *,
-  .toolkit-section,
-  .toolkit-section * {
+  .hero-physics * {
     cursor: auto !important;
   }
 }
@@ -873,6 +871,17 @@ hr {
 .nav-item {
   color: var(--fg-1);
   transition: color var(--dur) var(--ease);
+}
+
+/* Wrap del LanguageSwitcher en el menú mobile — centrado horizontal,
+   con padding-bottom para separarlo visualmente de los nav-links que
+   vienen abajo. Mayor gap = jerarquía clara entre "setting" y
+   "navegación principal". */
+.nav-mobile-lang-wrap {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 /* Hover SOLO en devices con mouse real — en laptop táctil el :hover

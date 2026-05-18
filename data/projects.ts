@@ -66,6 +66,14 @@ export type ProjectBlock =
        * Default: false (mantiene el fallback gris oscuro).
        */
       transparent?: boolean
+      /**
+       * CSS `object-position` aplicado al asset interno. Útil cuando con
+       * `object-fit: cover` el sujeto del asset queda mal centrado (ej.
+       * un mockup mobile que queda pegado al borde inferior).
+       * Valores típicos: 'center top', 'center 20%', '50% 30%'.
+       * Default: 'center center'.
+       */
+      objectPosition?: string
     }
   | { type: 'quote'; text: string }
   | { type: 'columns'; items: { heading: string; bullets: string[] }[] }
@@ -92,11 +100,18 @@ export interface ProjectTestimonial {
 
 // -------------------- Project type --------------------
 
+import type { LocalizedString } from '@/data/translations'
+
 export interface Project {
   slug: string
   year: string
   tags: string[]
-  title: string
+  /**
+   * Título del proyecto. Puede ser string plano (inglés solamente) o un
+   * objeto `{ en, es }` para versión bilingüe. Se usa en la card del home
+   * y como h1 del detail page.
+   */
+  title: LocalizedString
   /** Media del hero del DETALLE (usado en /work/[slug]). */
   media?: { type: 'video' | 'image'; src: string; alt?: string }
   /**
@@ -129,7 +144,10 @@ const projects: Project[] = [
     slug: 'orderflow',
     year: '2026',
     tags: ['Design Systems', 'Product Design', 'SaaS', 'E-Commerce'],
-    title: 'Code-first AI-assisted Design System for a scalable SaaS product',
+    title: {
+      en: 'Code-first AI-assisted Design System for a scalable SaaS product',
+      es: 'Design System code-first asistido por IA para escalar un producto SaaS',
+    },
     role: 'Product Design | Design Systems',
     industry: 'E-commerce | SaaS',
     media: {
@@ -291,8 +309,12 @@ const projects: Project[] = [
     slug: 'luma',
     year: '2025',
     tags: ['Fintech', 'Product Design', 'Mobile App', 'Design System'],
-    title:
-      'Improving financial visibility for people managing multiple projects and income streams',
+    title: {
+      en:
+        'Improving financial visibility for people managing multiple projects and income streams',
+      es:
+        'Mejorando la visibilidad financiera para personas que gestionan múltiples proyectos y fuentes de ingreso',
+    },
     role: 'Product Designer | Design Systems',
     industry: 'Fintech',
     media: {
@@ -443,6 +465,10 @@ const projects: Project[] = [
         src: '/assets/work/luma/detail-project.png',
         alt:
           'Showcase final del producto Luma — pantallas mobile del experience completo',
+        // El mockup mobile queda muy pegado al borde inferior con cover
+        // default. Empujamos hacia arriba el crop para que se vea más
+        // aire alrededor del dispositivo.
+        objectPosition: 'center 25%',
       },
     ],
   },
@@ -454,7 +480,10 @@ const projects: Project[] = [
     slug: 'iunok',
     year: '2024',
     tags: ['UX Design', 'UI Design', 'iOS App', 'B2C Healthtech'],
-    title: 'Increased conversion in a 3D facial scanning experience',
+    title: {
+      en: 'Increased conversion in a 3D facial scanning experience',
+      es: 'Aumenté la conversión en una experiencia de escaneo facial 3D',
+    },
     role: 'UX/UI Designer',
     industry: 'Healthtech',
     media: {
@@ -601,7 +630,6 @@ const projects: Project[] = [
           },
         ],
       },
-      // Showcase final del producto (DESPUÉS de testimonials, según Figma)
       {
         type: 'media',
         mediaType: 'video',

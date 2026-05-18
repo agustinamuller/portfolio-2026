@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Navbar } from '@/components/Navbar'
+import { LanguageProvider } from '@/contexts/LanguageContext'
 import '../styles/globals.css'
 
 export const metadata: Metadata = {
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es">
+    <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -42,8 +43,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <Navbar />
-        {children}
+        {/* LanguageProvider envuelve todo — Navbar y children pueden usar
+            useLanguage() para leer/cambiar el idioma actual. Default 'en';
+            si el navegador prefiere español o el usuario lo eligió antes,
+            el provider sincroniza al primer useEffect en el cliente. */}
+        <LanguageProvider>
+          <Navbar />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   )

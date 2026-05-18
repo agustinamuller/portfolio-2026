@@ -8,6 +8,9 @@ import { Reveal } from '@/components/Reveal'
 import LogoLoop from '@/components/LogoLoop'
 import { ScrollToTopButton } from '@/components/ScrollToTopButton'
 import projects, { getProject, type Project, type ProjectBlock, type ProjectTestimonial, type TextBlockItem } from '@/data/projects'
+import { ProjectHeaderSide } from '@/components/ProjectHeaderSide'
+import { ProjectTitle } from '@/components/ProjectTitle'
+import { tLocalized } from '@/data/translations'
 
 // Pre-renderizar todas las rutas en build (mejor SEO)
 export function generateStaticParams() {
@@ -18,9 +21,14 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
   const { slug } = await props.params
   const project = getProject(slug)
   if (!project) return { title: 'Proyecto no encontrado' }
+  // Para el <title> del browser y meta description usamos la versión EN
+  // por default (es el idioma indexado por Google). El switcher cambia
+  // los textos visibles en el cliente, pero la metadata del HTML server
+  // queda fija al primer render. Es un trade-off aceptable.
+  const titleEn = typeof project.title === 'string' ? project.title : project.title.en
   return {
-    title: project.title,
-    description: project.intro?.body?.split('\n')[0] ?? project.title,
+    title: titleEn,
+    description: project.intro?.body?.split('\n')[0] ?? titleEn,
   }
 }
 
@@ -82,6 +90,20 @@ export default async function WorkDetailPage(props: { params: Promise<{ slug: st
           flex-direction: column;
           gap: 48px;
         }
+
+        /* Body text de todos los bloques del case study.
+           - Desktop / Tablet: L/Regular del Figma → 20px / 36px line
+           - Mobile (≤600): M/Regular del Figma → 16px / 28px line
+           Aplica a body, items con highlight, e items bulleted (consistencia
+           total entre los tres tipos de texto descriptivo). Color va inline
+           porque varía por instancia (primary / secondary). */
+        .project-body-text {
+          font-family: 'Neue Montreal', var(--font-sans);
+          font-weight: 400;
+          font-size: 20px;
+          line-height: 36px;
+        }
+
         @media (max-width: 1024px) {
           .project-detail {
             padding: 40px 64px 80px;
@@ -93,6 +115,13 @@ export default async function WorkDetailPage(props: { params: Promise<{ slug: st
             padding: 24px 16px 56px;
           }
           .project-detail-container { gap: 32px; }
+          /* Body baja a 16/28 (M/Regular) — alineado con el resto del sitio
+             en mobile (ej. What I do usa el mismo size). 20/36 quedaba muy
+             grande en pantallas chicas. */
+          .project-body-text {
+            font-size: 16px;
+            line-height: 28px;
+          }
         }
       `}</style>
     </>
@@ -158,34 +187,11 @@ function ProjectHeader({ project }: { project: Project }) {
   return (
     <Reveal direction="up" distance={24} duration={1000} once>
       <header className="project-header">
-        <h1
-          style={{
-            fontFamily: '"Neue Montreal", var(--font-sans)',
-            fontWeight: 500,
-            fontSize: 40,
-            lineHeight: '48px',
-            letterSpacing: '-1px',
-            color: 'var(--fg-1)',
-            margin: 0,
-            flex: '1 1 0',
-            minWidth: 0,
-          }}
-        >
-          {project.title}
-        </h1>
-        <aside
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 16,
-            flexShrink: 0,
-            width: 200,
-          }}
-          className="project-header-side"
-        >
-          <SideInfo label="MY ROLE" value={project.role} />
-          <SideInfo label="INDUSTRY" value={project.industry} />
-        </aside>
+        {/* H1 bilingüe — client component que resuelve LocalizedString. */}
+        <ProjectTitle title={project.title} />
+        {/* Sidebar bilingüe — labels MY ROLE / INDUSTRY se traducen según
+            el idioma actual; los valores quedan en inglés siempre. */}
+        <ProjectHeaderSide role={project.role} industry={project.industry} />
 
         <style>{`
           .project-header {
@@ -213,34 +219,6 @@ function ProjectHeader({ project }: { project: Project }) {
   )
 }
 
-function SideInfo({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <div
-        style={{
-          fontFamily: '"Neue Montreal", var(--font-sans)',
-          fontWeight: 500,
-          fontSize: 16,
-          lineHeight: '28px',
-          color: 'var(--color-accent)',
-        }}
-      >
-        {label}
-      </div>
-      <div
-        style={{
-          fontFamily: '"Neue Montreal", var(--font-sans)',
-          fontWeight: 500,
-          fontSize: 14,
-          lineHeight: '20px',
-          color: 'var(--fg-3)',
-        }}
-      >
-        {value}
-      </div>
-    </div>
-  )
-}
 
 // ============================================================
 // Block renderer — switch sobre el tipo de block
@@ -264,6 +242,7 @@ function BlockRenderer({ block }: { block: ProjectBlock }) {
           alt={block.alt}
           scale={block.scale}
           transparent={block.transparent}
+          objectPosition={block.objectPosition}
         />
       )
     case 'quote':
@@ -289,6 +268,7 @@ function ProjectMedia({
   scale,
   transparent,
   eager = false,
+  objectPosition,
 }: {
   media: { type: 'video' | 'image'; src: string }
   alt?: string
@@ -310,6 +290,11 @@ function ProjectMedia({
    * lazy loading para imágenes + preload metadata para videos.
    */
   eager?: boolean
+  /**
+   * CSS object-position aplicado al asset. Default 'center center'.
+   * Útil para imágenes con sujeto descentrado en el canvas.
+   */
+  objectPosition?: string
 }) {
   // Para SVG transparentes, object-fit: contain muestra el asset completo
   // sin recortarlo (centrado en el container). Para el resto, cover llena
@@ -329,6 +314,7 @@ function ProjectMedia({
     width: '100%',
     height: '100%',
     objectFit,
+    objectPosition: objectPosition ?? 'center center',
     display: 'block',
     transform: scale && scale !== 1 ? `scale(${scale})` : undefined,
     transformOrigin: 'center center',
@@ -518,11 +504,8 @@ function ProjectBody({ body, color = 'var(--fg-3)' }: { body: string; color?: st
       {body.split('\n\n').map((para, i) => (
         <p
           key={i}
+          className="project-body-text"
           style={{
-            fontFamily: '"Neue Montreal", var(--font-sans)',
-            fontWeight: 400,
-            fontSize: 20,
-            lineHeight: '36px',
             color,
             margin: 0,
           }}
@@ -584,11 +567,8 @@ function ProjectTextBlock({
               {items.map((item, i) => (
                 <p
                   key={i}
+                  className="project-body-text"
                   style={{
-                    fontFamily: '"Neue Montreal", var(--font-sans)',
-                    fontWeight: 400,
-                    fontSize: 20,
-                    lineHeight: '36px',
                     color: 'var(--fg-1)',
                     margin: 0,
                   }}
@@ -614,11 +594,8 @@ function ProjectTextBlock({
               {items.map((item, i) => (
                 <li
                   key={i}
+                  className="project-body-text"
                   style={{
-                    fontFamily: '"Neue Montreal", var(--font-sans)',
-                    fontWeight: 400,
-                    fontSize: 20,
-                    lineHeight: '36px',
                     // Color base del item — la description usa este color
                     // (secondary). Si el item es objeto, el label override
                     // con primary via <span> inline abajo.

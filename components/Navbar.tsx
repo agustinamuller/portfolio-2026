@@ -5,6 +5,9 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { Logo } from './Logo'
 import { Button } from './Button'
+import { LanguageSwitcher } from './LanguageSwitcher'
+import { useLanguage } from '@/contexts/LanguageContext'
+import { translations } from '@/data/translations'
 
 // Marker especial — al cerrar el menú, navegar al top en lugar de a una sección.
 const NAV_INTENT_TOP = '__TOP__'
@@ -14,6 +17,10 @@ export function Navbar() {
   const [activeSection, setActiveSection] = useState<string | null>(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  // Idioma actual desde el LanguageContext. Cuando cambia, los labels
+  // de los nav items se re-renderean automáticamente.
+  const { language } = useLanguage()
+  const navT = translations.nav
   // Detectar si estamos en la home. Si no, los links work/about/contact
   // navegan a /#section en lugar de hacer smooth scroll (que solo funciona
   // si la sección existe en la página actual).
@@ -217,7 +224,7 @@ export function Navbar() {
               className={`nav-item ${activeSection === 'work' ? 'is-active' : ''}`}
               style={navItemStyle}
             >
-              work
+              {navT.work[language]}
             </Button>
           </a>
           <a href="/#about" onClick={scrollTo('about')} style={{ textDecoration: 'none' }}>
@@ -227,7 +234,7 @@ export function Navbar() {
               className={`nav-item ${activeSection === 'about' ? 'is-active' : ''}`}
               style={navItemStyle}
             >
-              about me
+              {navT.aboutMe[language]}
             </Button>
           </a>
           <a href="/#contact" onClick={scrollTo('contact')} style={{ textDecoration: 'none' }}>
@@ -237,9 +244,14 @@ export function Navbar() {
               className={`nav-item ${activeSection === 'contact' ? 'is-active' : ''}`}
               style={navItemStyle}
             >
-              contact
+              {navT.contact[language]}
             </Button>
           </a>
+
+          {/* Switcher de idioma — al final de los nav-items. La separación
+              visual la da el gap del flex container + el separador propio
+              que tiene el switcher entre EN y ES. */}
+          <LanguageSwitcher />
         </div>
 
         {/* MOBILE toggle — siempre renderizado, oculto en desktop via CSS. */}
@@ -264,6 +276,13 @@ export function Navbar() {
           textAlign: 'center',
         }}
       >
+          {/* Switcher de idioma arriba del menú — patrón de Figma 519:610.
+              Es un "setting", va separado visualmente de los links de
+              navegación (que vienen abajo con mayor gap). */}
+          <div className="nav-mobile-lang-wrap">
+            <LanguageSwitcher />
+          </div>
+
           <a
             href="/#work"
             onClick={scrollTo('work')}
@@ -273,7 +292,7 @@ export function Navbar() {
             onTouchEnd={(e) => (e.currentTarget.style.color = 'var(--fg-1)')}
             onTouchCancel={(e) => (e.currentTarget.style.color = 'var(--fg-1)')}
           >
-            work
+            {navT.work[language]}
           </a>
           <a
             href="/#about"
@@ -284,7 +303,7 @@ export function Navbar() {
             onTouchEnd={(e) => (e.currentTarget.style.color = 'var(--fg-1)')}
             onTouchCancel={(e) => (e.currentTarget.style.color = 'var(--fg-1)')}
           >
-            about me
+            {navT.aboutMe[language]}
           </a>
           <a
             href="/#contact"
@@ -295,7 +314,7 @@ export function Navbar() {
             onTouchEnd={(e) => (e.currentTarget.style.color = 'var(--fg-1)')}
             onTouchCancel={(e) => (e.currentTarget.style.color = 'var(--fg-1)')}
           >
-            contact
+            {navT.contact[language]}
           </a>
       </div>
     </>

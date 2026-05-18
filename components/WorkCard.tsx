@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { Project } from '@/data/projects'
 import { CategoryTag } from './CategoryTag'
 import { ArrowDiag } from './icons/ArrowDiag'
+import { useLanguage } from '@/contexts/LanguageContext'
+import { translations, tLocalized } from '@/data/translations'
 
 interface Props {
   project: Project
@@ -24,6 +26,11 @@ export function WorkCard({ project }: Props) {
   // para la grid de Selected Work). Si no existe, caemos al `media` del hero
   // del detalle.
   const cardMedia = homeMedia ?? media
+  // Idioma actual — para el botón "view project" / "ver proyecto" + para
+  // resolver el title del proyecto cuando es bilingüe.
+  const { language } = useLanguage()
+  const viewProjectLabel = translations.work.viewProject[language]
+  const titleText = tLocalized(title, language)
 
   return (
     <Link href={`/work/${slug}`} className="work-card-link">
@@ -64,7 +71,7 @@ export function WorkCard({ project }: Props) {
             // evita bajar las cards de abajo del fold.
             <img
               src={cardMedia.src}
-              alt={title}
+              alt={titleText}
               loading="lazy"
               decoding="async"
               style={{
@@ -97,7 +104,7 @@ export function WorkCard({ project }: Props) {
                 userSelect: 'none',
               }}
             >
-              {title.charAt(0).toUpperCase()}
+              {titleText.charAt(0).toUpperCase()}
             </div>
           )}
         </div>
@@ -106,7 +113,7 @@ export function WorkCard({ project }: Props) {
             por encima del scale y overflow del media. Visible sólo en hover. */}
         <div className="work-card-overlay" aria-hidden="true">
           <span className="work-card-overlay-btn">
-            view project
+            {viewProjectLabel}
             <ArrowDiag size={14} color="#ffffff" />
           </span>
         </div>
@@ -139,10 +146,9 @@ export function WorkCard({ project }: Props) {
                 margin: 0,
               }}
             >
-              {title}
+              {titleText}
             </h3>
           </div>
-
           {/* Botón "view project" — VISIBLE SOLO EN MOBILE. En desktop el
               CTA aparece como overlay sobre el media al hacer hover. En
               mobile no hay hover, así que mostramos el botón siempre. */}
@@ -150,7 +156,7 @@ export function WorkCard({ project }: Props) {
             className="work-card-mobile-btn"
             aria-hidden="true"
           >
-            view project
+            {viewProjectLabel}
             <ArrowDiag size={14} color="#ffffff" />
           </span>
         </div>

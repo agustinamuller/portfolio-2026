@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Reveal } from './Reveal'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 /**
  * Sección "what i do" — bilingüe inglés con palabras clave destacadas.
@@ -17,6 +18,7 @@ export function WhatIDo() {
   // en cliente se actualiza al valor real. Para evitar flash, ambos
   // estados renderizan los mismos elementos — sólo cambia el wrapper.
   const [isMobile, setIsMobile] = useState(false)
+  const { language } = useLanguage()
 
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 600px)')
@@ -26,24 +28,38 @@ export function WhatIDo() {
     return () => mq.removeEventListener('change', onChange)
   }, [])
 
-  // Renderiza los 2 párrafos — con o sin Reveal según breakpoint.
-  const paragraph1 = (
-    <p style={paragraphStyle}>
-      I&rsquo;m Agustina, a <span style={emphasisStyle}>UX/UI</span> &{' '}
-      <span style={emphasisStyle}>Product Designer</span> from Argentina focused on creating clear, functional, and scalable digital products. I design{' '}
-      <span style={emphasisStyle}>mobile apps</span> and{' '}
-      <span style={emphasisStyle}>web platforms</span> by balancing{' '}
-      <span style={emphasisStyle}>user needs</span> and{' '}
-      <span style={emphasisStyle}>business goals</span> to create intuitive and consistent experiences.
-    </p>
-  )
+  // Renderiza los 2 párrafos según el idioma:
+  // - EN mantiene las palabras clave destacadas en spans (UX/UI, Product
+  //   Designer, mobile apps, etc.) por ser el copy "marketing" del Figma.
+  // - ES usa texto plano sin destacados (el copy en español del doc
+  //   no tiene énfasis tipográfico marcado en el Figma de Agustina).
+  const paragraph1 =
+    language === 'es' ? (
+      <p style={paragraphStyle}>
+        Soy Agustina, UX/UI &amp; Product Designer de Argentina, enfocada en crear productos digitales claros, funcionales y escalables. Diseño aplicaciones mobile y plataformas web, equilibrando necesidades de usuario y objetivos de negocio para crear experiencias intuitivas y consistentes.
+      </p>
+    ) : (
+      <p style={paragraphStyle}>
+        I&rsquo;m Agustina, a <span style={emphasisStyle}>UX/UI</span> &{' '}
+        <span style={emphasisStyle}>Product Designer</span> from Argentina focused on creating clear, functional, and scalable digital products. I design{' '}
+        <span style={emphasisStyle}>mobile apps</span> and{' '}
+        <span style={emphasisStyle}>web platforms</span> by balancing{' '}
+        <span style={emphasisStyle}>user needs</span> and{' '}
+        <span style={emphasisStyle}>business goals</span> to create intuitive and consistent experiences.
+      </p>
+    )
 
-  const paragraph2 = (
-    <p style={paragraphStyle}>
-      I specialize in <span style={emphasisStyle}>Product Design</span> and{' '}
-      <span style={emphasisStyle}>Design Systems</span>, collaborating with product and development teams across B2B, B2C, SaaS, and e-commerce projects to turn complex workflows into simple, scalable, user-centered solutions.
-    </p>
-  )
+  const paragraph2 =
+    language === 'es' ? (
+      <p style={paragraphStyle}>
+        Me especializo en Product Design y Design Systems, colaborando con equipos de producto y desarrollo en proyectos B2B, B2C, SaaS, fintech y e-commerce, transformando flujos complejos en soluciones simples, escalables y centradas en el usuario.
+      </p>
+    ) : (
+      <p style={paragraphStyle}>
+        I specialize in <span style={emphasisStyle}>Product Design</span> and{' '}
+        <span style={emphasisStyle}>Design Systems</span>, collaborating with product and development teams across B2B, B2C, SaaS, fintech, and e-commerce projects to turn complex workflows into simple, scalable, user-centered solutions.
+      </p>
+    )
 
   return (
     <section
@@ -188,6 +204,7 @@ const paragraphStyle: React.CSSProperties = {
   color: 'var(--fg-3)', // text-secondary (#b4b4bc)
   margin: 0,
 }
+
 
 const emphasisStyle: React.CSSProperties = {
   color: 'var(--fg-1)', // text-primary (#fafafa) — destaca palabras clave

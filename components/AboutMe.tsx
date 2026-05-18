@@ -1,40 +1,90 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+// (sin useEffect/useRef/useState — el cursor decorativo se eliminó, ahora vive
+// solo en el Hero)
 import { Reveal } from './Reveal'
 import BlurText from './BlurText'
 import LogoLoop from './LogoLoop'
+import { useLanguage, Language } from '@/contexts/LanguageContext'
 
-const TITLE_TEXT =
-  "I've always been interested in understanding how people interact with technology. Today, I design digital experiences where product, systems, and human behavior connect in an intuitive, functional, and intentional way."
+const TITLE_TEXT = {
+  en:
+    "I've always been interested in understanding how people interact with technology. Today, I design digital experiences where product, systems, and human behavior connect in an intuitive, functional, and intentional way.",
+  es:
+    'Siempre me interesó entender cómo las personas interactúan con la tecnología. Hoy diseño experiencias digitales donde producto, sistemas y comportamiento humano se conectan de una forma intuitiva, funcional e intencional.',
+}
 
+// Testimonios — la quote se traduce, name y role quedan iguales (los roles
+// son títulos profesionales que en LinkedIn están en inglés).
 const TESTIMONIALS: Testimonial[] = [
   {
-    quote: 'Smart, proactive, and incredibly talented at creating intuitive UI/UX experiences.',
+    quote: {
+      en: 'Smart, proactive, and incredibly talented at creating intuitive UI/UX experiences.',
+      es: 'Inteligente, proactiva e increíblemente talentosa para crear experiencias UI/UX intuitivas.',
+    },
     name: 'Francisco Rosso',
     role: 'Senior iOS Engineer',
   },
   {
-    quote: 'Agustina never makes a design decision without first understanding the user, and in UX, that makes all the difference.',
+    quote: {
+      en:
+        'Agustina never makes a design decision without first understanding the user, and in UX, that makes all the difference.',
+      es:
+        'Agustina nunca toma una decisión de diseño sin antes entender al usuario, y en UX eso hace toda la diferencia.',
+    },
     name: 'Martín Stefoni',
     role: 'Senior iOS Engineer',
   },
   {
-    quote: 'Agustina transforms business needs into clear, functional, and beautifully crafted digital experiences.',
+    quote: {
+      en:
+        'Agustina transforms business needs into clear, functional, and beautifully crafted digital experiences.',
+      es:
+        'Agustina transforma necesidades de negocio en experiencias digitales claras, funcionales y visualmente muy bien resueltas.',
+    },
     name: 'Johanna Herrera',
     role: 'Project Manager',
   },
   {
-    quote: 'She combines strong UX thinking with exceptional communication, collaboration, problem solving skills.',
+    quote: {
+      en:
+        'She combines strong UX thinking with exceptional communication, collaboration, problem solving skills.',
+      es:
+        'Combina una mirada sólida de UX con excelentes habilidades de comunicación, colaboración y resolución de problemas.',
+    },
     name: 'Santiago Coronel',
     role: 'Senior Software Engineer',
   },
 ]
 
 interface Testimonial {
-  quote: string
+  quote: { en: string; es: string }
   name: string
   role: string
+}
+
+const CARD_LEFT_BODY = {
+  en:
+    'Outside of design, a big part of my inspiration comes from music, art, traveling, and absorbing references from architecture, film, and design. I have a very strong connection and sensitivity to music, especially the sounds and aesthetics of the 80s. I’m deeply drawn to the atmospheres, visual identities, and cultural details that defined that era. I also have a pretty nerdy side: I love science fiction, fantasy, and fictional universes like Star Wars and Game of Thrones. I grew up playing The Sims, and that was probably where my obsession with creating things first began.',
+  es:
+    'Fuera del diseño, gran parte de mi inspiración viene de la música, el arte, los viajes y de absorber referencias de arquitectura, cine y diseño. Tengo una conexión y sensibilidad muy fuerte con la música, especialmente con los sonidos y la estética de los años 80. Me atraen mucho las atmósferas, identidades visuales y detalles culturales que definieron esa época. También tengo un lado bastante nerd: me encanta la ciencia ficción, la fantasía y universos ficticios como Star Wars y Game of Thrones. Crecí jugando Los Sims, y probablemente ahí empezó mi obsesión por crear cosas.',
+}
+
+const CARD_RIGHT_HEADING = {
+  en: 'Graphic design was my passion… until I met UX',
+  es: 'Graphic design was my passion… hasta que conocí UX',
+}
+
+const CARD_RIGHT_BODY = {
+  en:
+    'A big part of my childhood and teenage years was spent experimenting on my computer, browsing the internet, discovering things out of curiosity, and creating. I spent hours exploring creative tools, editing visuals, customizing interfaces, and learning things simply because I enjoyed it. Back then, design was something purely visual to me. Years later, I studied Graphic Design & Visual Communication, where I discovered web design and eventually UX/UI. By the time I graduated, I was already working as a UX Designer, realizing that design could also influence how people use, feel, and experience a digital product.',
+  es:
+    'Gran parte de mi infancia y adolescencia la pasé experimentando en la computadora, navegando por internet, descubriendo cosas por curiosidad y creando. Pasaba horas explorando herramientas creativas, editando visuales, personalizando interfaces y aprendiendo simplemente porque lo disfrutaba. En ese momento, el diseño era algo puramente visual para mí. Años después estudié Diseño Gráfico y Comunicación Visual, donde descubrí el diseño web y eventualmente UX/UI. Para cuando me gradué, ya estaba trabajando como UX Designer y entendiendo que el diseño también podía influir en cómo las personas usan, sienten y experimentan un producto digital.',
+}
+
+const TESTIMONIALS_TITLE = {
+  en: 'Kind words from people I’ve worked with',
+  es: 'Algunas palabras de personas con las que trabajé',
 }
 
 /**
@@ -45,70 +95,12 @@ interface Testimonial {
  * - Cursor decorativo que sigue al mouse, visible sólo dentro de la sección.
  */
 export function AboutMe() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const cursorRef = useRef<HTMLDivElement>(null)
-  const [isMobile, setIsMobile] = useState(false)
-
-  // Detectar mobile y tablet (≤1024px) para no montar el cursor decorativo.
-  // Solo se monta en desktop (>1024px).
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 1024px)')
-    setIsMobile(mq.matches)
-    const onChange = () => setIsMobile(mq.matches)
-    mq.addEventListener('change', onChange)
-    return () => mq.removeEventListener('change', onChange)
-  }, [])
-
-  // Cursor decorativo con fade gradual — DESKTOP ONLY.
-  // No se monta en mobile (no hay mouse cursor en touch).
-  useEffect(() => {
-    if (isMobile) return
-    const section = sectionRef.current
-    const cursor = cursorRef.current
-    if (!section || !cursor) return
-
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reducedMotion) return
-
-    let raf = 0
-    let cx = 0
-    let cy = 0
-    let targetOpacity = 0
-
-    const apply = () => {
-      raf = 0
-      cursor.style.transform = `translate(${cx}px, ${cy}px)`
-      cursor.style.opacity = String(targetOpacity)
-    }
-
-    const onMove = (e: MouseEvent) => {
-      const rect = section.getBoundingClientRect()
-
-      cx = e.clientX
-      cy = e.clientY
-
-      // Binary inside/outside — cursor visible solo si el mouse está
-      // dentro de la sección. La transition CSS 150ms suaviza el cambio.
-      const isInside = (
-        e.clientX >= rect.left && e.clientX <= rect.right &&
-        e.clientY >= rect.top && e.clientY <= rect.bottom
-      )
-      targetOpacity = isInside ? 1 : 0
-
-      if (!raf) raf = requestAnimationFrame(apply)
-    }
-
-    window.addEventListener('mousemove', onMove, { passive: true })
-
-    return () => {
-      if (raf) cancelAnimationFrame(raf)
-      window.removeEventListener('mousemove', onMove)
-    }
-  }, [isMobile])
+  // Idioma actual del contexto — se usa para resolver el contenido bilingüe
+  // de title, cards, testimonios y heading de testimonios.
+  const { language } = useLanguage()
 
   return (
     <section
-      ref={sectionRef}
       id="about"
       aria-label="About me"
       className="about-me"
@@ -121,45 +113,16 @@ export function AboutMe() {
         boxSizing: 'border-box',
         position: 'relative',
         overflow: 'hidden',
-        // Oculta el cursor del sistema cuando el mouse está sobre la sección
-        // — sólo se ve el cursor decorativo SVG.
-        cursor: 'none',
+        // Cursor del sistema visible — el cursor decorativo se removió y
+        // queda solo en el Hero.
       }}
     >
-      {/* Cursor decorativo — DESKTOP ONLY. No se renderiza en mobile. */}
-      {!isMobile && (
-      <div
-        ref={cursorRef}
-        className="about-cursor"
-        aria-hidden="true"
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: 130,
-          height: 65,
-          marginLeft: -11,
-          marginTop: -10,
-          pointerEvents: 'none',
-          opacity: 0,
-          transition: 'opacity 150ms ease',
-          zIndex: 5,
-          willChange: 'transform',
-        }}
-      >
-        <img
-          src="/assets/cursor-about-me.svg"
-          alt=""
-          draggable={false}
-          style={{ width: '100%', height: '100%', display: 'block' }}
-        />
-      </div>
-      )}
+      {/* Cursor decorativo removido — quedó solo en el Hero. */}
 
       {/* 1) Título grande con efecto BlurText — cada palabra entra con
           fade + blur + slide vertical al entrar al viewport. */}
       <BlurText
-        text={TITLE_TEXT}
+        text={TITLE_TEXT[language]}
         animateBy="words"
         direction="top"
         delay={28}
@@ -201,9 +164,7 @@ export function AboutMe() {
                 borderRadius: 8,
               }}
             />
-            <p style={cardBody}>
-              Outside of design, a big part of my inspiration comes from music, art, traveling, and absorbing references from architecture, film, and design. I have a very strong connection and sensitivity to music, especially the sounds and aesthetics of the 80s. I&rsquo;m deeply drawn to the atmospheres, visual identities, and cultural details that defined that era. I also have a pretty nerdy side: I love science fiction, fantasy, and fictional universes like Star Wars and Game of Thrones. I grew up playing The Sims, and that was probably where my obsession with creating things first began.
-            </p>
+            <p style={cardBody}>{CARD_LEFT_BODY[language]}</p>
           </article>
 
           {/* Card derecha: story profesional */}
@@ -219,12 +180,10 @@ export function AboutMe() {
                 margin: 0,
               }}
             >
-              Graphic design was my passion… until I met UX
+              {CARD_RIGHT_HEADING[language]}
             </h3>
 
-            <p style={cardBody}>
-              A big part of my childhood and teenage years was spent experimenting on my computer, browsing the internet, discovering things out of curiosity, and creating. I spent hours exploring creative tools, editing visuals, customizing interfaces, and learning things simply because I enjoyed it. Back then, design was something purely visual to me. Years later, I studied Graphic Design &amp; Visual Communication, where I discovered web design and eventually UX/UI. By the time I graduated, I was already working as a UX Designer, realizing that design could also influence how people use, feel, and experience a digital product.
-            </p>
+            <p style={cardBody}>{CARD_RIGHT_BODY[language]}</p>
           </article>
         </div>
       </Reveal>
@@ -253,13 +212,15 @@ export function AboutMe() {
               margin: 0,
             }}
           >
-            Kind words from people I&rsquo;ve worked with
+            {TESTIMONIALS_TITLE[language]}
           </h3>
 
           {/* Slider horizontal infinito con LogoLoop. renderItem custom
               para mostrar cada testimonio como card. Sin fadeOut. */}
           <LogoLoop
-            logos={TESTIMONIALS.map((t) => ({ node: <TestimonialCard testimonial={t} /> }))}
+            logos={TESTIMONIALS.map((t) => ({
+              node: <TestimonialCard testimonial={t} language={language} />,
+            }))}
             speed={40}
             direction="left"
             gap={24}
@@ -274,7 +235,13 @@ export function AboutMe() {
   )
 }
 
-function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+function TestimonialCard({
+  testimonial,
+  language,
+}: {
+  testimonial: Testimonial
+  language: Language
+}) {
   return (
     <article className="about-testimonial-card">
       <p
@@ -288,7 +255,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           margin: 0,
         }}
       >
-        &ldquo;{testimonial.quote}&rdquo;
+        &ldquo;{testimonial.quote[language]}&rdquo;
       </p>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -323,24 +290,29 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 }
 
 function LinkedInBadge() {
+  // Asset oficial del Figma. Le damos className específica para poder
+  // override la regla global del LogoLoop (que aplica height:
+  // logoHeight + width: auto a TODAS las <img> dentro del slider, y
+  // estaba estirando este icono a 240px). Con !important ganamos
+  // specificity en el .iunok-style override del slider.
+  // eslint-disable-next-line @next/next/no-img-element
   return (
-    <div
+    <img
+      src="/assets/linkedin-icon-testimonials.svg"
+      alt=""
+      aria-hidden="true"
+      className="testimonial-linkedin-icon"
+      width={20}
+      height={20}
+      draggable={false}
       style={{
-        width: 24,
-        height: 24,
-        borderRadius: '50%',
-        background: 'var(--color-accent)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        display: 'block',
+        userSelect: 'none',
+        width: 20,
+        height: 20,
         flexShrink: 0,
       }}
-      aria-hidden="true"
-    >
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="#fafafa" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z" />
-      </svg>
-    </div>
+    />
   )
 }
 
@@ -349,6 +321,6 @@ const cardBody: React.CSSProperties = {
   fontWeight: 400,
   fontSize: 16,
   lineHeight: '28px',
-  color: 'var(--fg-2)',
+  color: 'var(--fg-3)',
   margin: 0,
 }

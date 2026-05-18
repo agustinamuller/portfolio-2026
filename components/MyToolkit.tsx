@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { Reveal } from './Reveal'
+import { useLanguage } from '@/contexts/LanguageContext'
+import { translations } from '@/data/translations'
 
 interface ToolkitIcon {
   id: string
@@ -38,10 +40,10 @@ const MAX_LIFT = 14
  * directamente (no se muestra para los íconos adyacentes que sólo escalan).
  */
 export function MyToolkit() {
+  const { language } = useLanguage()
   const dockRef = useRef<HTMLDivElement>(null)
   const iconRefs = useRef<(HTMLDivElement | null)[]>([])
   const sectionRef = useRef<HTMLElement>(null)
-  const cursorRef = useRef<HTMLDivElement>(null)
   // isMobile (≤600px) → tap-to-show tooltip (mobile only)
   const [isMobile, setIsMobile] = useState(false)
   // isTouchOrTablet (≤1024px) → controla cursor decorativo
@@ -75,52 +77,7 @@ export function MyToolkit() {
     }
   }, [])
 
-  // Cursor decorativo — DESKTOP ONLY (>1024px). No se monta en mobile
-  // ni en tablet (touch devices o tablets con o sin mouse).
-  useEffect(() => {
-    if (isTouchOrTablet) return
-    const section = sectionRef.current
-    const cursor = cursorRef.current
-    if (!section || !cursor) return
-
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reducedMotion) return
-
-    let raf = 0
-    let cx = 0
-    let cy = 0
-    let targetOpacity = 0
-
-    const apply = () => {
-      raf = 0
-      cursor.style.transform = `translate(${cx}px, ${cy}px)`
-      cursor.style.opacity = String(targetOpacity)
-    }
-
-    const onMove = (e: MouseEvent) => {
-      const rect = section.getBoundingClientRect()
-
-      cx = e.clientX
-      cy = e.clientY
-
-      // Binary inside/outside — cursor visible solo si el mouse está
-      // dentro de la sección. La transition CSS 150ms suaviza el cambio.
-      const isInside = (
-        e.clientX >= rect.left && e.clientX <= rect.right &&
-        e.clientY >= rect.top && e.clientY <= rect.bottom
-      )
-      targetOpacity = isInside ? 1 : 0
-
-      if (!raf) raf = requestAnimationFrame(apply)
-    }
-
-    window.addEventListener('mousemove', onMove, { passive: true })
-
-    return () => {
-      if (raf) cancelAnimationFrame(raf)
-      window.removeEventListener('mousemove', onMove)
-    }
-  }, [isTouchOrTablet])
+  // Cursor decorativo removido — quedó solo en el Hero.
 
   // Dock magnification effect — funciona SOLO si hay mouse real (hover).
   // En touch devices (mobile o tablet sin trackpad), el :hover CSS queda
@@ -210,35 +167,7 @@ export function MyToolkit() {
         position: 'relative',
       }}
     >
-      {/* Cursor decorativo — DESKTOP ONLY (>1024px).
-          Render condicional: NO se monta en mobile ni tablet. */}
-      {!isTouchOrTablet && (
-        <div
-          ref={cursorRef}
-          aria-hidden="true"
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: 130,
-            height: 65,
-            marginLeft: -11,
-            marginTop: -10,
-            pointerEvents: 'none',
-            opacity: 0,
-            transition: 'opacity 150ms ease',
-            zIndex: 20,
-            willChange: 'transform',
-          }}
-        >
-          <img
-            src="/assets/cursor-toolkit.svg"
-            alt=""
-            draggable={false}
-            style={{ width: '100%', height: '100%', display: 'block', userSelect: 'none' }}
-          />
-        </div>
-      )}
+      {/* Cursor decorativo removido — vive solo en el Hero. */}
       {/* Mismo patrón de Reveal que Selected Work / WhatIDo:
           duration 900, distance 40 → más visible y fluido. */}
       <Reveal duration={900} distance={40} rootMargin="0px 0px 10% 0px">
@@ -255,7 +184,7 @@ export function MyToolkit() {
             textAlign: 'center',
           }}
         >
-          My toolkit
+          {translations.toolkit.title[language]}
         </h2>
       </Reveal>
 
@@ -312,10 +241,8 @@ export function MyToolkit() {
                   }}
                 />
               </div>
-
               {/* Tooltip — sólo se ve cuando el cursor está SOBRE este ícono
-                  específicamente (no se ve para los íconos adyacentes que
-                  sólo escalan por el dock magnetic). */}
+                  específicamente. */}
               <span className="toolkit-tooltip">{icon.name}</span>
             </div>
           ))}

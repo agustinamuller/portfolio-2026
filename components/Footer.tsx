@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { useLanguage } from '@/contexts/LanguageContext'
+import { translations } from '@/data/translations'
 
 const EMAIL = 'magustinamuller@gmail.com'
 const LINKEDIN_URL = 'https://www.linkedin.com/in/magustinamuller/'
@@ -11,6 +13,8 @@ const LINKEDIN_URL = 'https://www.linkedin.com/in/magustinamuller/'
  */
 export function Footer() {
   const [copied, setCopied] = useState(false)
+  const { language } = useLanguage()
+  const footerT = translations.footer
 
   const copyEmail = async () => {
     try {
@@ -64,7 +68,7 @@ export function Footer() {
           margin: 0,
         }}
       >
-        Let&rsquo;s talk!
+        {footerT.letsTalk[language]}
       </h2>
 
       {/* Email + botón de copiar al clipboard */}
@@ -120,7 +124,7 @@ export function Footer() {
             lineHeight: '16px',
           }}
         >
-          {copied ? 'Copied to clipboard' : ' '}
+          {copied ? footerT.copied[language] : ' '}
         </span>
 
         {/* Badge de LinkedIn — link al perfil */}
@@ -203,7 +207,6 @@ function CopyIcon() {
   )
 }
 
-/** Ícono "check" — confirmación visual de copiado. */
 function CheckIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

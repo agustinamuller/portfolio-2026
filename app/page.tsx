@@ -1,4 +1,5 @@
 import { WorkCard } from '@/components/WorkCard'
+import { SelectedWorkTitle } from '@/components/SelectedWorkTitle'
 import { Footer } from '@/components/Footer'
 import { HeroPhysicsOverlay } from '@/components/hero/HeroPhysicsOverlay'
 import { HeroPlaygroundCursor } from '@/components/hero/HeroPlaygroundCursor'
@@ -161,22 +162,10 @@ function ExploreSection() {
         rootMargin="0px 0px 10% 0px"
         waitForHero
       >
-        <h2
-          className="work-section-title"
-          style={{
-            fontFamily: '"Neue Montreal", var(--font-sans)',
-            fontWeight: 500,
-            fontSize: 56,
-            lineHeight: '64px',
-            letterSpacing: '-2px',
-            color: 'var(--fg-1)',
-            margin: 0,
-            textAlign: 'center',
-            padding: '0 24px',
-          }}
-        >
-          Selected Work
-        </h2>
+        {/* Título bilingüe — client component que lee el idioma del Context.
+            Sus estilos están en SelectedWorkTitle.tsx (matchean al inline
+            anterior). */}
+        <SelectedWorkTitle />
       </Reveal>
 
       {/* Grid: 2 columnas desktop, 1 columna mobile. Cards entran con
