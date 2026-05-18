@@ -118,7 +118,7 @@ export const translations = {
   // Toolkit — sección dock con herramientas
   // ────────────────────────────────────────────────────────────
   toolkit: {
-    title: { en: 'Toolkit', es: 'Toolkit' },
+    title: { en: 'My toolkit', es: 'Toolkit' },
   },
 
   // ────────────────────────────────────────────────────────────
