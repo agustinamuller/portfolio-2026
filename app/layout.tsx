@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Analytics } from '@vercel/analytics/next'
 import { Navbar } from '@/components/Navbar'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 import '../styles/globals.css'
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar />
           {children}
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   )
